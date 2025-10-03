@@ -1,0 +1,97 @@
+
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: cdn-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 128Mi
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nginx-cdn-config
+data:
+  nginx.conf: |
+    worker_processes  auto;
+
+    events { worker_connections 1024; }
+
+    http {
+      proxy_cache_path /var/cache/nginx levels=1:2 keys_zone=hls_cache:10m max_size=1g inactive=60m use_temp_path=off;
+
+      server {
+          listen 8080;
+
+          location / {
+              proxy_pass $BACKEND_HOST;
+
+              # Cache only .ts segments, not playlists
+              proxy_cache hls_cache;
+              proxy_cache_valid 200 302 1h;
+              proxy_cache_valid 404 1m;
+              proxy_no_cache $http_pragma $http_authorization;
+              proxy_cache_bypass $http_pragma $http_authorization;
+
+              # Only cache .ts files
+              proxy_cache_bypass $arg_nocache;
+              proxy_cache_use_stale error timeout updating http_500 http_502 http_503 http_504;
+
+              add_header X-Cache-Status $upstream_cache_status always;
+
+          }
+
+          location ~ \.m3u8$ {
+              proxy_pass $BACKEND_HOST;
+              proxy_cache off;
+          }
+      }
+    }
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-cdn
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 80
+      targetPort: 8080
+  selector:
+    app: nginx-cdn
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-cdn
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: nginx-cdn
+  template:
+    metadata:
+      labels:
+        app: nginx-cdn
+    spec:
+      containers:
+        - name: nginx-cdn
+          image: nginx:1.25
+          ports:
+            - containerPort: 8080
+          volumeMounts:
+            - name: nginx-config
+              mountPath: /etc/nginx/nginx.conf
+              subPath: nginx.conf
+            - name: cache-volume
+              mountPath: /var/cache/nginx
+      volumes:
+        - name: nginx-config
+          configMap:
+            name: nginx-cdn-config
+        - name: cache-volume
+          persistentVolumeClaim:
+            claimName: cdn-pvc
