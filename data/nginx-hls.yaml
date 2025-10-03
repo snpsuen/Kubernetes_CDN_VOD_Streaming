@@ -1,0 +1,49 @@
+
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: hls-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 256Mi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-hls
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 80
+  selector:
+    app: nginx-hls
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-hls
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: nginx-hls
+  template:
+    metadata:
+      labels:
+        app: nginx-hls
+    spec:
+      containers:
+        - name: nginx-hls
+          image: snpsuen/nginx-hls:v01
+          ports:
+            - containerPort: 8000
+          volumeMounts:
+            - name: hls-vol
+              mountPath: /var/www/html/hls
+      volumes:
+        - name: hls-vol
+          persistentVolumeClaim:
+            claimName: hls-pvc
