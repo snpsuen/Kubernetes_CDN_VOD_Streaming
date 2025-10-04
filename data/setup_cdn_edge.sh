@@ -5,7 +5,7 @@ set -e
 # Step 2: Wait for external hostname
 while true
 do
-  echo "Killercoda service URL exposed to the Internet:  "
+  echo -n "Killercoda service URL exposed to the Internet:  "
   read HOST
   if [[ -n "$HOST" ]]
   then
