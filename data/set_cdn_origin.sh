@@ -1,5 +1,5 @@
 #!/bin/bash
-set -e
+
 echo "kubectl create -f https://raw.githubusercontent.com/snpsuen/Deep_Learning_Data/refs/heads/main/script/nginx-hls.yaml"
 kubectl create -f https://raw.githubusercontent.com/snpsuen/Deep_Learning_Data/refs/heads/main/script/nginx-hls.yaml
 while true
