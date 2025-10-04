@@ -2,8 +2,15 @@
 set -e
 echo "kubectl create -f https://raw.githubusercontent.com/snpsuen/Deep_Learning_Data/refs/heads/main/script/nginx-hls.yaml"
 kubectl create -f https://raw.githubusercontent.com/snpsuen/Deep_Learning_Data/refs/heads/main/script/nginx-hls.yaml
-sleep 1
-kubectl get pods
+while true
+do
+  kubectl get pods | grep nginx | grep -i running
+  if [ $? -eq 0 ]
+  then
+    break
+  fi
+  sleep 1
+done
 pod=`kubectl get pod -o jsonpath='{.items[0].metadata.name}'`
 
 echo "kubectl exec $pod -- mkdir /var/www/html/hls/v0001"
