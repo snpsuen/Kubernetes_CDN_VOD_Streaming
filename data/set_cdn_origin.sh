@@ -1,11 +1,11 @@
 #!/bin/bash
-
+set -e
 echo "kubectl create -f https://raw.githubusercontent.com/snpsuen/Deep_Learning_Data/refs/heads/main/script/nginx-hls.yaml"
 kubectl create -f https://raw.githubusercontent.com/snpsuen/Deep_Learning_Data/refs/heads/main/script/nginx-hls.yaml
 while true
 do
-  kubectl get pods | grep nginx | grep -i running
-  if [ $? -eq 0 ]
+  status=`kubectl get pods | grep nginx | head -1 | awk '{print $3}'`
+  if [ "$status" = "Running" ]
   then
     break
   fi
