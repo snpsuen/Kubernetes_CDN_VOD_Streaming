@@ -12,3 +12,29 @@ Apply the manifest file nginx-hls.yaml from this repo to create the nginx pods a
 ```
 kubectl create -f https://raw.githubusercontent.com/snpsuen/Kubernetes_CDN_VOD_Streaming/refs/heads/main/artifact/nginx-hls.yaml
 ```
+
+The pods run on a customised nginx docker image, snpsuen/nginx-hls:v01 with two specific features or "toppings" baked in.
+
+1. ffmeg is required to provision the streaming contents of a given video media file.
+```
+apt intstall ffmeg
+```
+
+2. A user defined nginx config file is put in place to specify how the nginx web server should run at the CDN origin. In parituclar, the server is configured to support the hosting of the relevant MIME types for HLS streaming contents.
+```
+server {
+    listen 8000;
+    root /var/www/html;
+
+    location /hls {
+        add_header 'Access-Control-Allow-Origin' '*' always;
+        root /var/www/html;   # put your HLS files in /var/www/html/hls
+        types {
+            application/vnd.apple.mpegurl m3u8;
+            video/mp2t ts;
+        }
+        add_header 'Cache-Control' 'no-cache';
+    }
+}
+```
+
