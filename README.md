@@ -15,12 +15,12 @@ kubectl create -f https://raw.githubusercontent.com/snpsuen/Kubernetes_CDN_VOD_S
 
 The pods run on a customised nginx docker image, snpsuen/nginx-hls:v01 with two specific features or "toppings" baked in.
 
-1. ffmeg is required to provision the streaming contents of a given video media file.
+First the ffmeg package is required to provision the streaming contents of a given video media file.
 ```
 apt intstall ffmeg
 ```
 
-2. A user defined nginx config file is put in place to specify how the nginx web server should run at the CDN origin. In parituclar, the server is configured to support the hosting of the relevant MIME types for HLS streaming contents.
+Next, a user defined nginx config file is put in place to specify how the nginx web server should run at the CDN origin. In parituclar, the server is configured to support the hosting of the MIME types for HLS streaming contents.
 ```
 server {
     listen 8000;
