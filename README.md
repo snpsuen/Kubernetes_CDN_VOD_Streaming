@@ -15,7 +15,7 @@ kubectl create -f https://raw.githubusercontent.com/snpsuen/Kubernetes_CDN_VOD_S
 
 The pods run on a customised nginx docker image, snpsuen/nginx-hls:v01 with two specific features or "toppings" baked in.
 
-First, the ffmeg package is required to provision the streaming contents of a given video media file.
+First, the ffmeg package is installed in order to provision the streaming contents of a given video media file.
 ```
 apt intstall ffmeg
 ```
@@ -40,8 +40,14 @@ server {
 
 ### 2. Provision VOD streaming contents at the CDN origin
 
-The step involves taking imperative actions to inject the VOD data to the nginx servers.
-Suppose you are given a sample video media file and have uploaded it to the Killercoda playground. Copy the file from a Kubernetes node to the web data directory of one of the nginx-hls pod.
+Imperative actions need to be taken in this step to inject the VOD data to the nginx servers. 
+Suppose you have uploaded a given video media file to the Killercoda playgound. For example, let's refer to a mp4 file called Istio_ingessgateway_virtualservice_part01.mp4. Copy the file from a Kubernetes node to the web directory shared between the nginx-hls pods to store HLS streaming contents.
+```
+pod=`kubectl get pods -o jsonpath='{.items[?(@.metadata.labels.app=="nginx-hls")].metadata.name}' | head -1`
+kubectl exec $pod -- mkdir /var/www/html/hls/v0001
+kubectl cp Istio_ingessgateway_virtualservice_part01.mp4 $pod:/var/www/html/hls/v0001
+```
+
 
 
 
