@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
-echo "kubectl create -f https://raw.githubusercontent.com/snpsuen/Deep_Learning_Data/refs/heads/main/script/nginx-hls.yaml"
-kubectl create -f https://raw.githubusercontent.com/snpsuen/Deep_Learning_Data/refs/heads/main/script/nginx-hls.yaml
+echo "kubectl create -f https://raw.githubusercontent.com/snpsuen/Kubernetes_CDN_VOD_Streaming/refs/heads/main/artifact/nginx-hls.yaml"
+kubectl create -f https://raw.githubusercontent.com/snpsuen/Kubernetes_CDN_VOD_Streaming/refs/heads/main/artifact/nginx-hls.yaml
 while true
 do
   status=`kubectl get pods | grep nginx | head -1 | awk '{print $3}'`
