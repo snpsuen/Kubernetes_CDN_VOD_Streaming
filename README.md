@@ -5,7 +5,7 @@ In this hands on exercise, we ilustrate how to set up a CDN building block on Ku
 2. Provision video contents for streaming from the CDN origin
 3. Deploy a CDN edge based on Kubernetes on premises
 
-### 1 CDN origin based on Kubernetes on cloud
+### 1. CDN origin on Kubernetes on cloud
 
 We uses a Killercoda Kubernetes playground to simiate a Kubernetes cluster running on cloud.
 Apply the manifest file nginx-hls.yaml from this repo to create the nginx pods and service for the CDN origin.
@@ -37,4 +37,12 @@ server {
     }
 }
 ```
+
+### 2. Provision VOD streaming contents at the CDN origin
+
+The step involves taking imperative actions to inject the VOD data to the nginx servers.
+Suppose you are given a sample video media file and have uploaded it to the Killercoda playground. Copy the file from a Kubernetes node to the web data directory of one of the nginx-hls pod.
+
+
+
 
