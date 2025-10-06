@@ -1,6 +1,6 @@
 ![Kubernetes_VOD_Streaming](kubernetes_vod_streaming.png)
 
-In this hands on exercise, we ilustrate how to set up a CDN building block on Kubenetes in a handy use case of provisioing and delivering a vod stream from a sample media file.
+In this hands on exercise, we ilustrate how to set up a CDN building block on Kubenetes in a nifty use case of provisioning and delivering a vod stream from a sample media file.
 1. Deploy a CDN origin based on Kubernetes on cloud
 2. Provision video contents for streaming from CDN origin
 3. Deploy a CDN edge based on Kubernetes on premises
@@ -15,12 +15,12 @@ kubectl create -f https://raw.githubusercontent.com/snpsuen/Kubernetes_CDN_VOD_S
 
 The pods run on a customised nginx docker image, snpsuen/nginx-hls:v01 with two specific features or "toppings" baked in.
 
-First the ffmeg package is required to provision the streaming contents of a given video media file.
+First, the ffmeg package is required to provision the streaming contents of a given video media file.
 ```
 apt intstall ffmeg
 ```
 
-Next, a user defined nginx config file is put in place to specify how the nginx web server should run at the CDN origin. In parituclar, the server is configured to support the hosting of the MIME types for HLS streaming contents.
+Furthermore a user defined nginx config file is put in place to specify how the nginx web server should run at the CDN origin. In parituclar, the server is configured to support the hosting of the MIME types for HLS streaming contents.
 ```
 server {
     listen 8000;
