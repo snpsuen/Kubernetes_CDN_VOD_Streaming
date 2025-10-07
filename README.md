@@ -45,10 +45,32 @@ Suppose you have uploaded a given video media file to the Killercoda playgound. 
 ```
 pod=`kubectl get pods -o jsonpath='{.items[?(@.metadata.labels.app=="nginx-hls")].metadata.name}' | head -1`
 kubectl exec $pod -- mkdir /var/www/html/hls/v0001
-kubectl cp Istio_ingessgateway_virtualservice_part01.mp4 $pod:/var/www/html/hls/v0001
+kubectl cp Istio_ingressgateway_virtualservice_part01.mp4 $pod:/var/www/html/hls/v0001
 ```
 
-Now we come to the important part of creating an HLS package of video streaming contents from the media file.
+Now we come to the important part of creating an HLS package of video streaming contents from the media file. To this end, the ffmeg command is invoked to break down the media file into HLS streaming segments.
+```
+kubectl exec $pod -- ffmpeg -i /var/www/html/hls/v0001/Istio_ingressgateway_virtualservice_part01.mp4 \
+-codec:v libx264 -profile:v baseline -level 3.0 -s 640x360 -start_number 0 \
+-hls_time 6 -hls_list_size 0 -f hls /var/www/html/hls/v0001/playlist.m3u8
+```
+
+Each segment is identified ordinally by a ts file, playlist<N>.ts, which contains 6 seconds of video contents. The segment files are summarised in a list described in the text file playlist.m3u8.
+```
+kubectl exec $pod -- ls -al /var/www/html/hls/v0001                                                  
+total 16060
+drwxr-xr-x 2 root root     4096 Oct  7 00:17 .
+drwxrwxrwx 3 root root     4096 Oct  7 00:15 ..
+-rw-r--r-- 1 root root     1101 Oct  7 00:17 playlist.m3u8
+-rw-r--r-- 1 root root   203604 Oct  7 00:16 playlist0.ts
+-rw-r--r-- 1 root root   194204 Oct  7 00:16 playlist1.ts
+:::
+-rw-r--r-- 1 root root   194392 Oct  7 00:17 playlist29.ts
+-rw-r--r-- 1 root root   123140 Oct  7 00:17 playlist30.ts
+:::
+```
+
+
 
 What we are going to do next is specific to this example of using a Killercoda playground to similate a kubernetes cluster running on cloud. Unlike 
 
