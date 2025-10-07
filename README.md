@@ -12,6 +12,18 @@ Apply the manifest file nginx-hls.yaml from this repo to create the nginx pods a
 ```
 kubectl create -f https://raw.githubusercontent.com/snpsuen/Kubernetes_CDN_VOD_Streaming/refs/heads/main/artifact/nginx-hls.yaml
 ```
+In this example, both the nginx pods and service are named nginx-hls to focus on the delivery of HLS streaming contents by the nginx web server.
+```
+controlplane:~$ kubectl get pods
+NAME                         READY   STATUS    RESTARTS   AGE
+nginx-hls-76457cdbdb-7tvld   1/1     Running   0          76s
+nginx-hls-76457cdbdb-jktf6   1/1     Running   0          76s
+controlplane:~$ kubectl get svc 
+NAME         TYPE           CLUSTER-IP       EXTERNAL-IP   PORT(S)        AGE
+kubernetes   ClusterIP      10.96.0.1        <none>        443/TCP        17d
+nginx-hls    LoadBalancer   10.104.163.161   <pending>     80:30245/TCP   79s
+```
+
 
 The pods run on a customised nginx docker image, snpsuen/nginx-hls:v01 with two specific features or "toppings" baked in.
 
@@ -85,7 +97,7 @@ playlist30.ts
 
 It is these ts files together with the m3u8 metadata that are instrumental in the implementation of video streaming as they are pulled continuously in sequence by the client video player via standard HTTP GET requests. Henceforth, they will be served out as static, read-only files by the nginx web server in response to any on-demand requests for the media item concerned.
 
-What we are going to do next is specific to this example of using a Killercoda playground to similate a kubernetes cluster running on cloud. Unlike 
+What we are going to do next is specific to our attempt to use a Killercoda playground to similate a cloud-based Kubernetes cluseter in this examples. In the case of a commercial cloud provider, the nginix-nls
 
 
 
