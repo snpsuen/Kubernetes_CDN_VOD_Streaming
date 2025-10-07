@@ -50,5 +50,7 @@ kubectl cp Istio_ingessgateway_virtualservice_part01.mp4 $pod:/var/www/html/hls/
 
 Now we come to the important part of creating an HLS package of video streaming contents from the media file.
 
+What we are going to do next is specific to this example of using a Killercoda playground to similate a kubernetes cluster running on cloud. Unlike 
+
 
 
