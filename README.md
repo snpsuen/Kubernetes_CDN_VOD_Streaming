@@ -48,7 +48,7 @@ kubectl exec $pod -- mkdir /var/www/html/hls/v0001
 kubectl cp Istio_ingessgateway_virtualservice_part01.mp4 $pod:/var/www/html/hls/v0001
 ```
 
-
+Now we come to the important part of creating an HLS package of video streaming contents from the media file.
 
 
 
