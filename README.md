@@ -69,7 +69,6 @@ drwxrwxrwx 3 root root     4096 Oct  7 00:15 ..
 -rw-r--r-- 1 root root   123140 Oct  7 00:17 playlist30.ts
 :::
 kubectl exec $pod -- ls -al /var/www/html/hls/v0001 -- cat /var/www/html/hls/v0001/playlist.m3u8
-```
 #EXTM3U
 #EXT-X-VERSION:3
 #EXT-X-TARGETDURATION:10
