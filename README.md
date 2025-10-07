@@ -83,7 +83,7 @@ playlist30.ts
 #EXT-X-ENDLIST
 ```
 
-
+It is these ts files together with the m3u8 metadata that are instrumental in the implementation of video streaming as they are pulled continuously in sequence by the client video player via standard HTTP GET requests. Henceforth, they will be served out as static, read-only files by the nginx web server in response to any on-demand requests for the media item concerned.
 
 What we are going to do next is specific to this example of using a Killercoda playground to similate a kubernetes cluster running on cloud. Unlike 
 
