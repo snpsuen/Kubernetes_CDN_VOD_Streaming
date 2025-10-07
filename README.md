@@ -97,7 +97,16 @@ playlist30.ts
 
 It is these ts files together with the m3u8 metadata that are instrumental in the implementation of video streaming as they are pulled continuously in sequence by the client video player via standard HTTP GET requests. Henceforth, they will be served out as static, read-only files by the nginx web server in response to any on-demand requests for the media item concerned.
 
-What we are going to do next is specific to our attempt to use a Killercoda playground to similate a cloud-based Kubernetes cluseter in this examples. In the case of a commercial cloud provider, the nginix-nls
+What we are going to do next is specific to our current attempt to use a Killercoda playground to similate a cloud-based Kubernetes cluseter in this example. If deployed on a commercial cloud,  the kubernete service nginx-hls would be exposed by a load balancer in place to the Internet with a persistent hostname and port number 
+
+In contrast, Killercoda uses an ephermeral, dynamic URL to expose the kubernete service to the Internet. This is done by forwarding any incoming requests targted at the ephermeral host to a designated port on one of Kubernetes nodes for NodePort access to the service.
+
+
+Fill in the given NodePort number and take note of the ephermal URL of the return web page. In this case, it is https://d6a3b270f6a5-10-244-4-203-30245-spca.r.killercoda.com.
+
+
+
+
 
 
 
