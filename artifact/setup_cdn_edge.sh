@@ -15,7 +15,7 @@ do
 done
 
 # Step 3: Deploy frontend reverse proxy
-BACKEND_HOST=$HOST envsubst '$BACKEND_HOST' < nginx-cdn-template.yaml | kubectl apply -f -
+export BACKEND_HOST=$HOST envsubst '$BACKEND_HOST' < nginx-cdn-template.yaml | kubectl apply -f -
 echo "Reverse proxy deployed pointing to $BACKEND_HOST"
 
 sleep 7
