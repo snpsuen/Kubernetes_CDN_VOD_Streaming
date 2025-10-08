@@ -19,6 +19,7 @@ export BACKEND_HOST=$HOST
 envsubst '$BACKEND_HOST' < nginx-cdn-template.yaml | kubectl apply -f -
 echo "Reverse proxy deployed pointing to $BACKEND_HOST"
 
-sleep 7
+echo "Waiting for the nginx reverse proxy pods to come up ..."
+sleep 10
 kubectl get pod
 kubectl get svc
