@@ -143,7 +143,7 @@ Verify the URL works by connecting directly to the landing page at the CDN origi
 
 ### 3. CDN edge on Kubernetes on premises
 
-In this example, an on-prem Kubernetes cluster run on a pair of VirtualBox VMs in a local notebook. THe CDN edge is implemented by a nginx reverse proxy service in association with the endpoint pods. Port forwarding rules are configured properly to forward incoming traffic heading towards the local notebook to the kubernetes service concerned.
+A CDN edge is set up in a Kubernetes on premises. In this example, the K8s cluster run on a pair of VirtualBox VMs in a local notebook. THe CDN edge is implemented by a nginx reverse proxy service in association with the endpoint pods. Port forwarding rules are configured properly to forward incoming traffic heading towards the local notebook to the kubernetes service concerned.
 
 
 
