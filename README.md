@@ -24,7 +24,6 @@ kubernetes   ClusterIP      10.96.0.1        <none>        443/TCP        17d
 nginx-hls    LoadBalancer   10.104.163.161   <pending>     80:30245/TCP   79s
 ```
 
-
 The pods run on a customised nginx docker image, snpsuen/nginx-hls:v01 with two specific features or "toppings" baked in.
 
 First, the ffmeg package is installed in order to provision the streaming contents of a given video media file.
@@ -96,6 +95,8 @@ playlist30.ts
 ```
 
 It is these ts files together with the m3u8 metadata that are instrumental in the implementation of video streaming as they are pulled continuously in sequence by the client video player via standard HTTP GET requests. Henceforth, they will be served out as static, read-only files by the nginx web server in response to any on-demand requests for the media item concerned.
+
+Finally, create an HTML page that will be launched by a client to start playing the provisioned video stream on a browser. A video player is embedded in the form of a JS script, video.js. The m3u8 playlist will be fetched by the browser before videosjs proceeds to read it 
 
 What we are going to do next is specific to our current attempt to use a Killercoda playground to similate a cloud-based Kubernetes cluseter in this example. If deployed on a commercial cloud,  the kubernete service nginx-hls would be exposed by a load balancer in place to the Internet with a persistent hostname and port number 
 
