@@ -95,7 +95,7 @@ playlist30.ts
 ```
 It is these ts files together with the m3u8 metadata that are instrumental in the implementation of video streaming as they are pulled continuously in sequence by the client video player via standard HTTP GET requests. Henceforth, they will be served out as static, read-only files by the nginx web server in response to any on-demand requests for the media item concerned.
 
-Finally, create an HTML file and add it to the web server as a landing page that will be launched by a client to start playing the provisioned streaming contents on a browser.
+Finally, create an HTML file to add to the web server. It will serve as a landing page for a client to start streaming the provisioned scontents on a browser.
 ```
 cat > v0001.html <<EOF
 <!DOCTYPE html>
@@ -123,15 +123,17 @@ EOF
 kubectl cp v0001.html $pod:/var/www/html/
 ```
 
-A video player is embedded in HTML in the form of a JS script, video.js. The m3u8 playlist will be fetched by the browser before video.js proceeds to download and process the listed ts files in a video stream.
+Observe that a video player is embedded in HTML in the form of a JS script, video.js. The m3u8 playlist will be fetched by the browser before video.js proceeds to download and process the listed ts files in a video stream.
 
 What we are going to do next is specific to our current attempt to use a Killercoda playground to similate a cloud-based Kubernetes cluseter in this example. If deployed on a commercial cloud,  the kubernete service nginx-hls would be exposed by a load balancer in place to the Internet with a persistent hostname and port number 
 
 In contrast, Killercoda uses an ephermeral, dynamic URL to expose the kubernete service to the Internet. This is done by forwarding any incoming requests targted at the ephermeral host to a designated port on one of Kubernetes nodes for NodePort access to the service.
 
+Fill in the given NodePort number and take note of the ephermal URL of the return web page.
+![killercoda_nginx-hls_svc_nodeport_screen04](killercoda_nginx-hls_svc_nodeport_screen04.PNG)
 
-Fill in the given NodePort number and take note of the ephermal URL of the return web page. In this case, it is https://d6a3b270f6a5-10-244-4-203-30245-spca.r.killercoda.com.
-
+In this case, it is https://d6a3b270f6a5-10-244-4-203-30245-spca.r.killercoda.com.
+![killercoda_nginx-hls_svc_nodeport_screen05](killercoda_nginx-hls_svc_nodeport_screen05.PNG)
 
 
 
