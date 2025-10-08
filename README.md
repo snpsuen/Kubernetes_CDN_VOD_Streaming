@@ -93,10 +93,37 @@ playlist1.ts
 playlist30.ts
 #EXT-X-ENDLIST
 ```
-
 It is these ts files together with the m3u8 metadata that are instrumental in the implementation of video streaming as they are pulled continuously in sequence by the client video player via standard HTTP GET requests. Henceforth, they will be served out as static, read-only files by the nginx web server in response to any on-demand requests for the media item concerned.
 
-Finally, create an HTML page that will be launched by a client to start playing the provisioned video stream on a browser. A video player is embedded in the form of a JS script, video.js. The m3u8 playlist will be fetched by the browser before videosjs proceeds to read it 
+Finally, create an HTML file and add it to the web server as a landing page.
+```
+cat > v0001.html <<EOF
+<!DOCTYPE html>
+<html>
+<head>
+  <link href="https://vjs.zencdn.net/8.23.3/video-js.css" rel="stylesheet" />
+  <script src="https://vjs.zencdn.net/8.23.3/video.min.js"></script>
+</head>
+<body>
+  <h1> VOD streaming example </h1>
+  <video
+    id="my-video"
+    class="video-js vjs-default-skin"
+    controls
+    preload="auto"
+    width="640"
+    height="360"
+    data-setup='{}'>
+    <source src="/hls/v0001/playlist.m3u8" type="application/x-mpegURL">
+  </video>
+</body>
+</html>
+EOF
+
+kubectl cp v0001.html $pod:/var/www/html/
+```
+
+The landing page will be launched by a client to start playing the provisioned video stream on a browser. A video player is embedded in the HTML file in the form of a JS script, video.js. The m3u8 playlist is to be fetched by the browser before videosjs proceeds to download and process the listed ts files in a stream.
 
 What we are going to do next is specific to our current attempt to use a Killercoda playground to similate a cloud-based Kubernetes cluseter in this example. If deployed on a commercial cloud,  the kubernete service nginx-hls would be exposed by a load balancer in place to the Internet with a persistent hostname and port number 
 
