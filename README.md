@@ -123,7 +123,7 @@ EOF
 kubectl cp v0001.html $pod:/var/www/html/
 ```
 
-Observe that a video player is embedded in HTML in the form of a JS script, video.js. The m3u8 playlist will be fetched by the browser before video.js proceeds to download and process the listed ts files in a video stream.
+Observe that a video player is embedded in the HTML in the form of a JS script named video.js. The m3u8 playlist will be fetched by the browser before video.js proceeds to download and process the listed ts files in a video stream.
 
 What we are going to do next is specific to our current attempt to use a Killercoda playground to similate a cloud-based Kubernetes cluseter in this example. If deployed on a commercial cloud,  the kubernete service nginx-hls would be exposed by a load balancer in place to the Internet with a persistent hostname and port number 
 
