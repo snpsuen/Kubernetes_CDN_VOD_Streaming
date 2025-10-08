@@ -130,12 +130,16 @@ What we are going to do next is specific to our current attempt to use a Killerc
 In contrast, Killercoda uses an ephermeral, dynamic URL to expose the kubernete service to the Internet. This is done by forwarding any incoming requests targted at the ephermeral host to a designated port on one of Kubernetes nodes for NodePort access to the service.
 
 Fill in the given NodePort number and take note of the ephermal URL of the return web page.
+
 ![killercoda_nginx-hls_svc_nodeport_screen04](killercoda_nginx-hls_svc_nodeport_screen04.PNG)
 
 In this case, it is https://d6a3b270f6a5-10-244-4-203-30245-spca.r.killercoda.com.
+
 ![killercoda_nginx-hls_svc_nodeport_screen05](killercoda_nginx-hls_svc_nodeport_screen05.PNG)
 
+Verify the URL works by connecting directly to the video streaming landing page at the CDN origin, https://d6a3b270f6a5-10-244-4-203-30245-spca.r.killercoda.com/v0001.html
 
+![killercoda_nginx-hls_svc_nodeport_screen06](killercoda_nginx-hls_svc_nodeport_screen06.PNG)
 
 
 
