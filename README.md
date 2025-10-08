@@ -137,9 +137,16 @@ In this case, it is https://d6a3b270f6a5-10-244-4-203-30245-spca.r.killercoda.co
 
 ![killercoda_nginx-hls_svc_nodeport_screen05](killercoda_nginx-hls_svc_nodeport_screen05.PNG)
 
-Verify the URL works by connecting directly to the video streaming landing page at the CDN origin, https://d6a3b270f6a5-10-244-4-203-30245-spca.r.killercoda.com/v0001.html
+Verify the URL works by connecting directly to the landing page at the CDN origin, https://d6a3b270f6a5-10-244-4-203-30245-spca.r.killercoda.com/v0001.html, and playing the requested video stream on the browser.
 
 ![killercoda_nginx-hls_svc_nodeport_screen06](killercoda_nginx-hls_svc_nodeport_screen06.PNG)
+
+### 3. CDN edge on Kubernetes on premises
+
+In this example, an on-prem Kubernetes cluster run on a pair of VirtualBox VMs in a local notebook. THe CDN edge is implemented by a nginx reverse proxy service in association with the endpoint pods. Port forwarding rules are configured properly to forward incoming traffic heading towards the local notebook to the kubernetes service concerned.
+
+
+
 
 
 
