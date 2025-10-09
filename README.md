@@ -143,7 +143,28 @@ Verify the URL works by connecting directly to the landing page at the CDN origi
 
 ### 3. CDN edge on Kubernetes on premises
 
-A CDN edge is set up in a Kubernetes on premises. In this example, the K8s cluster run on a pair of VirtualBox VMs in a local notebook. THe CDN edge is implemented by a nginx reverse proxy service in association with the endpoint pods. Port forwarding rules are configured properly to forward incoming traffic heading towards the local notebook to the kubernetes service concerned.
+A CDN edge is set up in a Kubernetes on premises. In this example, the K8s cluster is deployed between a pair of VirtualBox VMs in a local notebook. The edge functionality is implemented by a nginx reverse service together with the endpoints where the relevant workloads are executed. Port forwarding rules are configured properly to forward incoming traffic heading towards the local notebook to the kubernetes service concerned.
+
+Deploy the nginx-reverse pods and service by applying the manifest template namely nginx-cdn-template with the environment variable set to the CDN orgin location as exposed by Killercoda.
+```
+export BACKEND_HOST=$HOST
+envsubst '$BACKEND_HOST' < nginx-cdn-template.yaml | kubectl apply -f -
+```
+
+Both the pods and service are named nginx-cdn to emphasise the K8s resources are working for the CDN edge.
+```
+keyuser@ubunclone:~$ kubectl get pod
+NAME                         READY   STATUS    RESTARTS   AGE
+nginx-cdn-67954666f4-c7pqs   1/1     Running   0          5h43m
+nginx-cdn-67954666f4-p5mm4   1/1     Running   0          5h43m
+keyuser@ubunclone:~$
+keyuser@ubunclone:~$ kubectl get svc
+NAME         TYPE           CLUSTER-IP     EXTERNAL-IP   PORT(S)        AGE
+kubernetes   ClusterIP      10.96.0.1      <none>        443/TCP        120d
+nginx-cdn    LoadBalancer   10.96.27.173   172.18.0.10   80:31312/TCP   5h44m
+
+```
+
 
 
 
