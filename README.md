@@ -120,7 +120,7 @@ cat > v0001.html <<EOF
 </html>
 EOF
 
-kubectl cp v0001.html $pod:/var/www/html/
+kubectl cp v0001.html $pod:/var/www/html
 ```
 
 Observe that a video player is embedded in the HTML in the form of a JS script named video.js. The m3u8 playlist will be fetched by the browser to start with before video.js goes on to download and process the listed ts files in a video stream.
