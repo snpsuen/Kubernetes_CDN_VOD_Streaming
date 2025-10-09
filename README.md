@@ -149,7 +149,6 @@ Deploy the nginx-reverse pods and service by applying the manifest template name
 ```
 export BACKEND_HOST=$HOST
 envsubst '$BACKEND_HOST' < nginx-cdn-template.yaml | kubectl apply -f -
-
 ```
 
 Both the pods and service are named nginx-cdn to emphasise the K8s resources are working for the CDN edge.
@@ -163,7 +162,6 @@ keyuser@ubunclone:~$ kubectl get svc
 NAME         TYPE           CLUSTER-IP     EXTERNAL-IP   PORT(S)        AGE
 kubernetes   ClusterIP      10.96.0.1      <none>        443/TCP        120d
 nginx-cdn    LoadBalancer   10.96.27.173   172.18.0.10   80:31312/TCP   5h44m
-
 ```
 
 
