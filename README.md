@@ -209,7 +209,9 @@ data:
     }
 ```
 
-You can see that the any HTTP request addressed to the reverse proxy will be passed to $BACKEND_HOST, i.e. https://d6a3b270f6a5-10-244-4-203-30245-spca.r.killercoda.com. Hence, if the reverse proxy is requested to fetch the video streaming landing page, GET /v0001.html, it will open the URL https://d6a3b270f6a5-10-244-4-203-30245-spca.r.killercoda.com/v0001.html on behalf the client.
+You can see that the any HTTP request addressed to the reverse proxy will be passed to $BACKEND_HOST, i.e. https://d6a3b270f6a5-10-244-4-203-30245-spca.r.killercoda.com. 
+
+Accordingly, if the reverse proxy is requested to fetch the video streaming landing page, GET /v0001.html, it will open the URL https://d6a3b270f6a5-10-244-4-203-30245-spca.r.killercoda.com/v0001.html on behalf the client.
 
 Another point of note is that the requested contents will be stored in the cache path /var/cache/nginx, which is mounted on a persistent volume of the kubernetes cluster.
 
