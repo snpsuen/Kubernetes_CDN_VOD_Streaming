@@ -147,7 +147,7 @@ A CDN edge is set up in a Kubernetes on premises. In this example, the K8s clust
 
 Deploy the nginx-reverse pods and service by applying the manifest template namely [nginx-cdn-template](artifact/nginx-cdn_template.yaml) with the environment variable set to the CDN orgin location as exposed by Killercoda.
 ```
-export BACKEND_HOST=$HOST
+export BACKEND_HOST=https://d6a3b270f6a5-10-244-4-203-30245-spca.r.killercoda.com
 envsubst '$BACKEND_HOST' < nginx-cdn-template.yaml | kubectl apply -f -
 ```
 
@@ -164,6 +164,54 @@ kubernetes   ClusterIP      10.96.0.1      <none>        443/TCP        120d
 nginx-cdn    LoadBalancer   10.96.27.173   172.18.0.10   80:31312/TCP   5h44m
 ```
 
+The reverse proxy is configured by mapping the ConfigMap CRD to nginx.conf in the manifest template.
+
+```
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nginx-cdn-config
+data:
+  nginx.conf: |
+    worker_processes  auto;
+
+    events { worker_connections 1024; }
+
+    http {
+      proxy_cache_path /var/cache/nginx levels=1:2 keys_zone=hls_cache:10m max_size=1g inactive=60m use_temp_path=off;
+
+      server {
+          listen 8080;
+
+          location / {
+              proxy_pass $BACKEND_HOST;
+
+              # Cache only .ts segments, not playlists
+              proxy_cache hls_cache;
+              proxy_cache_valid 200 302 1h;
+              proxy_cache_valid 404 1m;
+              proxy_no_cache $http_pragma $http_authorization;
+              proxy_cache_bypass $http_pragma $http_authorization;
+
+              # Only cache .ts files
+              proxy_cache_bypass $arg_nocache;
+              proxy_cache_use_stale error timeout updating http_500 http_502 http_503 http_504;
+
+              add_header X-Cache-Status $upstream_cache_status always;
+
+          }
+
+          location ~ \.m3u8$ {
+              proxy_pass $BACKEND_HOST;
+              proxy_cache off;
+          }
+      }
+    }
+```
+
+You can see that the any HTTP request addressed to the reverse proxy will be passed to $BACKEND_HOST, i.e. https://d6a3b270f6a5-10-244-4-203-30245-spca.r.killercoda.com. Hence, if the reverse proxy is requested to fetch the video streaming landing page, GET /v0001.html, it will open the URL https://d6a3b270f6a5-10-244-4-203-30245-spca.r.killercoda.com/v0001.html on behalf the client.
+
+Another point of note is that the requested contents will be stored in the cache path /var/cache/nginx, which is mounted on a persistent volume of the kubernetes cluster.
 
 
 
