@@ -7,12 +7,12 @@ In this hands on exercise, we illustrate how to set up a CDN building block on K
 
 ### 1. CDN origin on Kubernetes on cloud
 
-We uses a Killercoda Kubernetes playground to simiate a Kubernetes cluster running on cloud.
-Apply the manifest file nginx-hls.yaml from this repo to create the nginx pods and service for the CDN origin.
+We use a Killercoda Kubernetes playground to simiate a Kubernetes cluster running on cloud.
+Apply the manifest file [nginx-hls.yaml](artifact/nginx-hls.yaml) from this repo to create the nginx pods and service for the CDN origin.
 ```
 kubectl create -f https://raw.githubusercontent.com/snpsuen/Kubernetes_CDN_VOD_Streaming/refs/heads/main/artifact/nginx-hls.yaml
 ```
-In this example, both the nginx pods and service are named nginx-hls to focus on the delivery of HLS streaming contents by the nginx web server.
+In this example, both the nginx pods and service are named nginx-hls to emphasize the delivery of HLS streaming contents by the nginx web server.
 ```
 controlplane:~$ kubectl get pods
 NAME                         READY   STATUS    RESTARTS   AGE
@@ -151,7 +151,7 @@ export BACKEND_HOST=https://d6a3b270f6a5-10-244-4-203-30245-spca.r.killercoda.co
 envsubst '$BACKEND_HOST' < nginx-cdn-template.yaml | kubectl apply -f -
 ```
 
-Both the pods and service are named nginx-cdn to emphasise the K8s resources are working for the CDN edge.
+Both the pods and service are named nginx-cdn to stress the K8s resources are working at the CDN edge.
 ```
 keyuser@ubunclone:~$ kubectl get pod
 NAME                         READY   STATUS    RESTARTS   AGE
