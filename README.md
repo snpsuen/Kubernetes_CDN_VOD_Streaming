@@ -143,7 +143,7 @@ Verify the URL works by connecting directly to the landing page at the CDN origi
 
 ### 3. CDN edge on Kubernetes on premises
 
-A CDN edge is set up in a Kubernetes on premises. In this example, the K8s cluster is deployed between a pair of VirtualBox VMs in a local notebook. The edge functionality is implemented by a nginx reverse service together with the endpoints where the relevant workloads are executed. Port forwarding rules are configured properly to forward incoming traffic heading towards the local notebook to the kubernetes service concerned.
+A CDN edge is set up in a Kubernetes on premises. In this example, the K8s cluster is deployed between a pair of VirtualBox VMs in a local notebook. The edge functionality is implemented by a nginx reverse service together with the endpoints where the relevant workloads are executed. 
 
 Deploy the nginx-reverse pods and service by applying the manifest template namely [nginx-cdn-template](artifact/nginx-cdn_template.yaml) with the environment variable set to the CDN orgin location as exposed by Killercoda.
 ```
@@ -163,6 +163,8 @@ NAME         TYPE           CLUSTER-IP     EXTERNAL-IP   PORT(S)        AGE
 kubernetes   ClusterIP      10.96.0.1      <none>        443/TCP        120d
 nginx-cdn    LoadBalancer   10.96.27.173   172.18.0.10   80:31312/TCP   5h44m
 ```
+
+Port forwarding rules are configured locally to forward incoming traffic heading towards localhost:80 to the reverse proxy at 172.18.0.10:80.
 
 The reverse proxy is configured by mapping the ConfigMap CRD to nginx.conf in the manifest template.
 
@@ -217,7 +219,7 @@ Another point of note is that the requested contents will be stored in the cache
 
 
 
-
+![nginx_reverse_cdn_edge_screen07](nginx_reverse_cdn_edge_screen07.PNG)
 
 
 
