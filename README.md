@@ -145,8 +145,8 @@ Verify the URL works by connecting directly to the landing page at the CDN origi
 
 A CDN edge is set up in a Kubernetes on premises. In this example, the K8s cluster is deployed between a pair of VirtualBox VMs in a local notebook. The edge functionality is implemented by a nginx reverse service together with the endpoints where the relevant workloads are executed. Port forwarding rules are configured properly to forward incoming traffic heading towards the local notebook to the kubernetes service concerned.
 
-Deploy the nginx-reverse pods and service by applying the manifest template namely nginx-cdn-template with the environment variable set to the CDN orgin location as exposed by Killercoda.
-```
+Deploy the nginx-reverse pods and service by applying the manifest template namely [nginx-cdn-template](artifact/nginx-cdn_template.yaml) with the environment variable set to the CDN orgin location as exposed by Killercoda.
+``(
 export BACKEND_HOST=$HOST
 envsubst '$BACKEND_HOST' < nginx-cdn-template.yaml | kubectl apply -f -
 ```
