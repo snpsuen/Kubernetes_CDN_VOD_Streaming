@@ -217,7 +217,7 @@ Accordingly, if the reverse proxy is requested to fetch the video streaming land
 
 Another point of note is that the requested contents will be stored in the cache path /var/cache/nginx, which is mounted on a persistent volume of the kubernetes cluster.
 
-
+Finally, open the URL http://localhost/v0001.html on a local browser. The request is forwarded directly to the reverse proxy, which proceed to fetch the landing page from the CDN orign and start delivering the streaming contents.
 
 ![nginx_reverse_cdn_edge_screen07](nginx_reverse_cdn_edge_screen07.PNG)
 
