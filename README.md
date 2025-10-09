@@ -151,7 +151,7 @@ export BACKEND_HOST=https://d6a3b270f6a5-10-244-4-203-30245-spca.r.killercoda.co
 envsubst '$BACKEND_HOST' < nginx-cdn-template.yaml | kubectl apply -f -
 ```
 
-Both the pods and service are named nginx-cdn to stress the K8s resources are working at the CDN edge.
+Both the pods and service are named nginx-cdn to highlight the focus of the K8s resources on the CDN edge.
 ```
 keyuser@ubunclone:~$ kubectl get pod
 NAME                         READY   STATUS    RESTARTS   AGE
