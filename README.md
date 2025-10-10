@@ -66,7 +66,7 @@ kubectl exec $pod -- ffmpeg -i /var/www/html/hls/v0001/Istio_ingressgateway_virt
 -hls_time 6 -hls_list_size 0 -f hls /var/www/html/hls/v0001/playlist.m3u8
 ```
 
-Each segment is identified ordinally by a ts file, playlist<N>.ts, which contains 6 seconds of video contents. The segment files are summarised in a list in the text file playlist.m3u8.
+Each segment is identified ordinally by a ts file, playlist<N>.ts, which contains a 6-second length of video contents. The segment files are summarised in a list in the text file playlist.m3u8.
 ```
 kubectl exec $pod -- ls -al /var/www/html/hls/v0001                                                  
 total 16060
