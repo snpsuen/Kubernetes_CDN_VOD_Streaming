@@ -20,6 +20,9 @@ spec:
             - name: new-vod-vol
               mountPath: /vod/new
       volumes:
+        - name: hls-vol
+          persistentVolumeClaim:
+            claimName: hls-pvc
         - name: new-vod-vol
           hostPath:
             path: /root/vod/new
