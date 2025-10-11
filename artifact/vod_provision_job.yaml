@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: job
+metadata:
+  name: vod-provision
+spec:
+  selector:
+    matchLabels:
+      app: vod-provision
+  template:
+    metadata:
+      labels:
+        app: vod-provision
+    spec:
+      containers:
+        - name: vod-provision
+          image: snpsuen/vod-provision:v01
+          volumeMounts:
+            - name: hls-vol
+              mountPath: /var/www/html/hls
+            - name: new-vod-vol
+              mountPath: /vod/new
+      volumes:
+        - name: new-vod-vol
+          hostPath:
+            path: /root/vod/new
+            type: Directory
+      restartPolicy: Never
