@@ -30,6 +30,6 @@ fi
 
 if [ -f "$vodnew/$vid.html" ] 
 then
-  echo "cp $vodnew/$vid.html /var/www/html"
-  cp /vod/new/$vid.html /var/www/html
+  echo "cp $vodnew/$vid.html /var/www/html/hls"
+  cp /vod/new/$vid.html /var/www/html/hls
 fi
