@@ -12,7 +12,7 @@ spec:
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: nginx-nls-config
+  name: nginx-hls-config
 data:
   hls.conf: |
     server {
