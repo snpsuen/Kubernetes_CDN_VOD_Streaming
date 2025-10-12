@@ -56,7 +56,7 @@ spec:
     spec:
       containers:
         - name: nginx-hls
-          image: snpsuen/nginx-hls:v01
+          image: snpsuen/nginx-hls:v02
           ports:
             - containerPort: 8000
           volumeMounts:
