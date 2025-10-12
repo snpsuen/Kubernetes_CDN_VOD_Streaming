@@ -23,7 +23,7 @@ then
   echo "cp $mp4path /var/www/html/hls/$vid"
   cp $mp4path /var/www/html/hls/$vid
   echo "ffmpeg -i /var/www/html/hls/v0001/$vid/$mp4file ..."
-  ffmpeg -i /var/www/html/hls/$vid/$file -codec:v libx264 -profile:v baseline -level 3.0 -s 640x360 \
+  ffmpeg -i /var/www/html/hls/$vid/$mp4file -codec:v libx264 -profile:v baseline -level 3.0 -s 640x360 \
   -start_number 0 -hls_time 6 -hls_list_size 0 -f hls /var/www/html/hls/$vid/playlist.m3u8
   ls -al /var/www/html/hls/$vid
 fi
