@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link href="https://vjs.zencdn.net/8.23.3/video-js.css" rel="stylesheet" />
+  <script src="https://vjs.zencdn.net/8.23.3/video.min.js"></script>
+</head>
+<body>
+  <h1> VOD streaming example </h1>
+  <video
+    id="my-video"
+    class="video-js vjs-default-skin"
+    controls
+    preload="auto"
+    width="640"
+    height="360"
+    data-setup='{}'>
+    <source src="/v0001/playlist.m3u8" type="application/x-mpegURL">
+  </video>
+</body>
+</html>
