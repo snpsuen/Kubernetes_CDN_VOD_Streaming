@@ -68,7 +68,7 @@ spec:
       volumes:
         - name: hls-vol
           persistentVolumeClaim:
+            claimName: hls-pvc
         - name: nginx-hls-config
           configMap:
             name: nginx-hls-config
-            claimName: hls-pvc
