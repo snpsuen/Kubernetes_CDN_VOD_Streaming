@@ -23,6 +23,7 @@ data:
           add_header 'Cache-Control' 'no-cache';
           root /var/www/html/hls;   # put your HLS files in /var/www/html/hls
           types {
+              text/html html
               application/vnd.apple.mpegurl m3u8;
               video/mp2t ts;
           }
