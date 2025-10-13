@@ -11,7 +11,7 @@ spec:
       containers:
         - name: vod-provision
           image: snpsuen/vod-provision:v02
-          command: ['/workspace/vod-provision.sh']
+          command: ["/workspace/vod_provision.sh"]
           volumeMounts:
             - name: hls-vol
               mountPath: /var/www/html/hls
