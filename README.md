@@ -125,6 +125,13 @@ kubectl cp v0001.html $pod:/var/www/html
 
 Observe that a video player is embedded in the HTML in the form of a JS script named video.js. The m3u8 playlist will be fetched by the browser to start with before video.js goes on to download and process the listed ts files in a video stream.
 
+Alternatively, it is viable to use a [Kubernetes job](artifact02/vod_provision_job.yaml) to do all the imperative work in a pod.
+```
+kubectl apply -f https://raw.githubusercontent.com/snpsuen/Kubernetes_CDN_VOD_Streaming/refs/heads/main/artifact02/vod_provision_job.yaml
+```
+
+More specifically, the entry point script /workspace/vod_provision.sh will be invoked in the job pod to run all the commands issued by kubectl exec above.
+
 What we are going to do next is specific to our present attempt to use a Killercoda playground to similate a cloud-based Kubernetes cluseter. If deployed on a commercial cloud,  the kubernete service nginx-hls would be exposed by a load balancer in place to the Internet with a persistent hostname and port number 
 
 In contrast, Killercoda uses an ephermeral, dynamic URL to expose the kubernete service to the Internet. This is done by forwarding any incoming requests targted at the ephermeral host to a designated port on one of Kubernetes nodes for NodePort access to the service.
