@@ -131,6 +131,9 @@ kubectl apply -f https://raw.githubusercontent.com/snpsuen/Kubernetes_CDN_VOD_St
 ```
 
 More specifically, the entry point script /workspace/vod_provision.sh will be invoked in the job pod to run all the commands issued by kubectl exec above.
+1. Copy the given video mp4 file to the PVC mounted on /var/www/html/hls
+2. Execute ffmpeg to break down the media file into a playlist of ts streaming segments
+3. Copy v0001.html to the web content directory of the nginx-hls server 
 
 What we are going to do next is specific to our present attempt to use a Killercoda playground to similate a cloud-based Kubernetes cluseter. If deployed on a commercial cloud,  the kubernete service nginx-hls would be exposed by a load balancer in place to the Internet with a persistent hostname and port number 
 
