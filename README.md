@@ -7,7 +7,7 @@ In this hands on exercise, we illustrate how to set up a CDN building block on K
 
 ### 1. CDN origin on Kubernetes on cloud
 
-We use a Killercoda Kubernetes playground to simiate a Kubernetes cluster running on cloud.
+We use a Killercoda Kubernetes playground to simulate a Kubernetes cluster running on cloud.
 Apply the manifest file [nginx-hls.yaml](artifact/nginx-hls.yaml) from this repo to create the nginx pods and service for the CDN origin.
 ```
 kubectl create -f https://raw.githubusercontent.com/snpsuen/Kubernetes_CDN_VOD_Streaming/refs/heads/main/artifact/nginx-hls.yaml
